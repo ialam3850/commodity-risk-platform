@@ -1,0 +1,12 @@
+build*/
+target/
+__pycache__/
+*.pyc
+.venv/
+.idea/
+.vscode/
+*.iml
+compile_commands.json
+research/data/cache/
+research/output/
+.env
