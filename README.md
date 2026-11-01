@@ -5,6 +5,7 @@ A futures ledger, pricing core, and research pipeline for commodity risk.
 ## Available components
 
 - `pricing-core/`: C++20 Black-76 prices, Greeks, implied volatility, and tests.
+- Historical and Monte Carlo VaR, expected shortfall, portfolio valuation, and pricing fixtures.
 
 ## Run the checks
 

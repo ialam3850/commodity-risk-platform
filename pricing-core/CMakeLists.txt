@@ -24,9 +24,16 @@ if(PC_SANITIZE)
 endif()
 
 find_package(Threads REQUIRED)
-add_library(pricing STATIC src/black76.cpp)
+add_library(pricing STATIC src/black76.cpp src/var.cpp)
 target_include_directories(pricing PUBLIC include)
 target_link_libraries(pricing PUBLIC Threads::Threads)
+
+# Writes testdata/black76_golden.csv, which the Java service's tests also check.
+add_executable(gen_golden tools/gen_golden.cpp)
+target_link_libraries(gen_golden PRIVATE pricing)
+
+add_executable(bench_var tools/bench_var.cpp)
+target_link_libraries(bench_var PRIVATE pricing)
 
 include(FetchContent)
 if(PC_BUILD_TESTS)
@@ -36,7 +43,7 @@ if(PC_BUILD_TESTS)
     DOWNLOAD_EXTRACT_TIMESTAMP TRUE)
   set(INSTALL_GTEST OFF CACHE BOOL "" FORCE)
   FetchContent_MakeAvailable(googletest)
-  add_executable(pricing_tests tests/test_black76.cpp)
+  add_executable(pricing_tests tests/test_black76.cpp tests/test_var.cpp)
   target_link_libraries(pricing_tests PRIVATE pricing GTest::gtest_main)
   include(GoogleTest)
   gtest_discover_tests(pricing_tests)
