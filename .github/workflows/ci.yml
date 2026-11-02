@@ -16,3 +16,21 @@ jobs:
       - name: Check required files
         run: git ls-files --error-unmatch README.md LICENSE THIRD_PARTY_NOTICES.md .gitignore .clang-format
 
+  pricing-core:
+    name: C++ pricing core (${{ matrix.config }})
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        config: [release, sanitize]
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update && sudo apt-get install -y ninja-build python3-dev
+      - name: Configure
+        run: |
+          extra=""
+          if [ "${{ matrix.config }}" = "sanitize" ]; then extra="-DCMAKE_BUILD_TYPE=Debug -DPC_SANITIZE=ON -DPC_BUILD_PYTHON=OFF"; fi
+          cmake -S pricing-core -B pricing-core/build -G Ninja -DPC_BUILD_PYTHON=OFF $extra
+      - run: cmake --build pricing-core/build
+      - run: ctest --test-dir pricing-core/build --output-on-failure
+
