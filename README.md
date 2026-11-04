@@ -7,6 +7,7 @@ A futures ledger, pricing core, and research pipeline for commodity risk.
 - `pricing-core/`: C++20 Black-76 prices, Greeks, implied volatility, and tests.
 - Historical and Monte Carlo VaR, expected shortfall, portfolio valuation, and pricing fixtures.
 - `research/`: futures contract calendars and roll-adjusted nearby returns.
+- EIA futures and storage downloads with pagination, retries, and a local cache.
 
 ## Run the checks
 
