@@ -1,5 +1,13 @@
 # Changes
 
+## Add the EIA data client
+
+Fetch futures and storage observations with pagination, caching, bounded retries, and offline client tests.
+
+## Add contract calendars and roll-adjusted returns
+
+Handle nearby futures contracts and calculate returns without treating a contract roll as a market move.
+
 ## Add historical and Monte Carlo portfolio risk
 
 Value futures and option books, calculate VaR and expected shortfall, and add benchmarks and shared pricing fixtures.
