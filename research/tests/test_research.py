@@ -10,6 +10,7 @@ import pandas as pd
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from commodity_research.contracts import front_month, last_trade_date, nearby_months, roll_dates, symbol
 from commodity_research.returns import naive_log_returns, nearby_log_returns
+from commodity_research.storage_signal import five_year_norm, release_dates, surprise_signal, weekly_changes
 
 def trading_days(start='2023-01-01', end='2025-12-31'):
     days = pd.bdate_range(start, end)
@@ -52,5 +53,39 @@ class RollAdjustmentTest(unittest.TestCase):
         np.testing.assert_allclose(adj['C2'], np.log(1.001), atol=1e-12)
         self.assertEqual(adj['C3'].isna().sum(), len(roll_dates(days)))
         self.assertAlmostEqual(naive['C1'].max(), np.log(1.05 * 1.001), places=9)
+
+class StorageSignalTest(unittest.TestCase):
+
+    def setUp(self):
+        weeks = pd.date_range('2010-01-01', '2020-12-25', freq='W-FRI')
+        seasonal = 60 * np.sin(2 * np.pi * (weeks.isocalendar().week.to_numpy() - 14) / 52)
+        rng = np.random.default_rng(1)
+        change = seasonal + rng.normal(0, 10, len(weeks))
+        self.storage = pd.Series(2000 + np.cumsum(change), index=weeks)
+        self.days = pd.bdate_range('2010-01-01', '2021-01-31')
+
+    def test_norm_needs_five_prior_years_and_uses_only_the_past(self):
+        changes = weekly_changes(self.storage)
+        norm = five_year_norm(changes)
+        self.assertTrue(norm[changes.index.year < 2015].isna().all())
+        self.assertTrue(norm[changes.index.year >= 2016].notna().all())
+        t = changes.index[changes.index.year == 2018][10]
+        wk = t.isocalendar().week
+        same = changes[(changes.index.isocalendar().week == wk) & changes.index.year.isin(range(2013, 2018))]
+        self.assertAlmostEqual(norm[t], same.mean())
+
+    def test_signal_does_not_look_ahead(self):
+        full = surprise_signal(self.storage, self.days)
+        cut = pd.Timestamp('2018-06-01')
+        edited = self.storage.copy()
+        edited[edited.index > cut] += np.linspace(0, 500, (edited.index > cut).sum())
+        changed = surprise_signal(edited, self.days)
+        before = full.index[full.index <= cut]
+        pd.testing.assert_frame_equal(full.loc[before], changed.loc[before])
+
+    def test_release_is_the_thursday_after_week_end(self):
+        r = release_dates(pd.DatetimeIndex(['2024-11-22', '2024-11-15']), trading_days())
+        self.assertEqual(r[0], pd.Timestamp('2024-11-29'))
+        self.assertEqual(r[1], pd.Timestamp('2024-11-21'))
 if __name__ == '__main__':
     unittest.main()

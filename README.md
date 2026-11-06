@@ -8,6 +8,7 @@ A futures ledger, pricing core, and research pipeline for commodity risk.
 - Historical and Monte Carlo VaR, expected shortfall, portfolio valuation, and pricing fixtures.
 - `research/`: futures contract calendars and roll-adjusted nearby returns.
 - EIA futures and storage downloads with pagination, retries, and a local cache.
+- Storage surprises based on a five-year norm and a trading-day release calendar.
 
 ## Run the checks
 
