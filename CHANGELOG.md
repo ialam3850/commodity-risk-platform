@@ -1,5 +1,9 @@
 # Changes
 
+## Add the storage surprise signal
+
+Build release dates and a five-year storage norm using only observations available before each release.
+
 ## Add the EIA data client
 
 Fetch futures and storage observations with pagination, caching, bounded retries, and offline client tests.
