@@ -27,3 +27,11 @@ Python requires Python 3.10 or later.
 python -m pip install -r research/requirements.txt
 (cd research && python -m unittest discover -s tests -v)
 ```
+
+## Development history
+
+Local development: **January 2025–present**, using the start date supplied by the project author.
+
+The existing Git history begins on **October 30, 2026**.
+
+See the [development history](docs/DEVELOPMENT_HISTORY.md) for dated milestones in the repository.
