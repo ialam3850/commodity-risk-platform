@@ -9,6 +9,7 @@ A futures ledger, pricing core, and research pipeline for commodity risk.
 - `research/`: futures contract calendars and roll-adjusted nearby returns.
 - EIA futures and storage downloads with pagination, retries, and a local cache.
 - Storage surprises based on a five-year norm and a trading-day release calendar.
+- Walk-forward backtests, transaction costs, committed observations, and result plots.
 
 ## Run the checks
 
@@ -27,4 +28,10 @@ Python requires Python 3.10 or later.
 ```bash
 python -m pip install -r research/requirements.txt
 (cd research && python -m unittest discover -s tests -v)
+```
+
+Run the backtest on the committed observations:
+
+```bash
+python research/scripts/run_backtest.py
 ```
