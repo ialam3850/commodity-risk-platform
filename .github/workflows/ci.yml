@@ -44,4 +44,6 @@ jobs:
           python-version: "3.12"
       - run: pip install -r research/requirements.txt
       - run: cd research && python -m unittest discover -s tests -v
+      - name: Backtest runs on the committed data
+        run: python research/scripts/run_backtest.py
 
