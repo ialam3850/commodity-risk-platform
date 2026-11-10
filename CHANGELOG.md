@@ -1,5 +1,9 @@
 # Changes
 
+## Start the Java service and instrument database
+
+Add the Spring Boot application, PostgreSQL schema, product rules, instrument endpoints, and database smoke tests.
+
 ## Add walk-forward backtests and committed data
 
 Select parameters on prior years, account for transaction costs, and handle empty trading periods.
