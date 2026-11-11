@@ -1,5 +1,9 @@
 # Changes
 
+## Book fills with balanced postings and idempotent retries
+
+Add book balances, deposits, fill booking, and append-only accounting. Check retries, concurrency, and ledger invariants.
+
 ## Start the Java service and instrument database
 
 Add the Spring Boot application, PostgreSQL schema, product rules, instrument endpoints, and database smoke tests.
