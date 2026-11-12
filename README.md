@@ -10,6 +10,8 @@ A futures ledger, pricing core, and research pipeline for commodity risk.
 - EIA futures and storage downloads with pagination, retries, and a local cache.
 - Storage surprises based on a five-year norm and a trading-day release calendar.
 - Walk-forward backtests, transaction costs, committed observations, and result plots.
+- `ledger-service/`: Java 21, PostgreSQL migrations, product rules, and instrument endpoints.
+- Fill booking, idempotent retries, balanced postings, deposits, and book balances.
 
 ## Run the checks
 
@@ -34,4 +36,12 @@ Run the backtest on the committed observations:
 
 ```bash
 python research/scripts/run_backtest.py
+```
+
+The service requires Java 21. Unit tests run without a database; the full
+suite starts PostgreSQL through Testcontainers and requires Docker.
+
+```bash
+(cd ledger-service && ./mvnw test)
+(cd ledger-service && ./mvnw verify)
 ```

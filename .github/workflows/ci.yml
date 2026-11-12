@@ -34,6 +34,24 @@ jobs:
       - run: cmake --build pricing-core/build
       - run: ctest --test-dir pricing-core/build --output-on-failure
 
+  ledger-service:
+    name: Java ledger service
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+          cache: maven
+      # Integration tests start PostgreSQL in Docker via Testcontainers.
+      - run: cd ledger-service && ./mvnw -B verify
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: test-reports
+          path: ledger-service/target/*-reports/
+
   research:
     name: Python research
     runs-on: ubuntu-24.04
