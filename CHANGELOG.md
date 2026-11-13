@@ -1,5 +1,9 @@
 # Changes
 
+## Store settlements and factor returns
+
+Add validated batch market-data endpoints, transactional rollback checks, and repeat-upsert tests.
+
 ## Book fills with balanced postings and idempotent retries
 
 Add book balances, deposits, fill booking, and append-only accounting. Check retries, concurrency, and ledger invariants.

@@ -12,6 +12,7 @@ A futures ledger, pricing core, and research pipeline for commodity risk.
 - Walk-forward backtests, transaction costs, committed observations, and result plots.
 - `ledger-service/`: Java 21, PostgreSQL migrations, product rules, and instrument endpoints.
 - Fill booking, idempotent retries, balanced postings, deposits, and book balances.
+- Batch settlement prices and factor returns with request validation.
 
 ## Run the checks
 
