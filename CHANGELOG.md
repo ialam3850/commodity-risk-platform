@@ -1,5 +1,9 @@
 # Changes
 
+## Expose option pricing and historical risk endpoints
+
+Add Java pricing and portfolio VaR, cross-check prices against the C++ fixtures, and validate request values.
+
 ## Store settlements and factor returns
 
 Add validated batch market-data endpoints, transactional rollback checks, and repeat-upsert tests.
