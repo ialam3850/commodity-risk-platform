@@ -14,6 +14,7 @@ A futures ledger, pricing core, and research pipeline for commodity risk.
 - Fill booking, idempotent retries, balanced postings, deposits, and book balances.
 - Batch settlement prices and factor returns with request validation.
 - Service endpoints for Black-76 pricing, implied volatility, and historical portfolio risk.
+- Daily variation margin, P&L, and closed-date checks.
 
 ## Run the checks
 

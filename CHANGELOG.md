@@ -1,5 +1,9 @@
 # Changes
 
+## Settle daily variation margin and close trading dates
+
+Add end-of-day posting, mark-to-market P&L, repeat-run protection, and settlement ordering checks.
+
 ## Expose option pricing and historical risk endpoints
 
 Add Java pricing and portfolio VaR, cross-check prices against the C++ fixtures, and validate request values.
