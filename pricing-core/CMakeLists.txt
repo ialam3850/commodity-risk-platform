@@ -14,7 +14,7 @@ if(NOT CMAKE_BUILD_TYPE)
 endif()
 
 option(PC_BUILD_TESTS "Build unit tests" ON)
-option(PC_BUILD_PYTHON "Build the pybind11 Python module" OFF)
+option(PC_BUILD_PYTHON "Build the pybind11 Python module" ON)
 option(PC_SANITIZE "Build with AddressSanitizer + UBSan" OFF)
 
 add_compile_options(-Wall -Wextra -Wpedantic -Wshadow -Wconversion)
@@ -49,3 +49,11 @@ if(PC_BUILD_TESTS)
   gtest_discover_tests(pricing_tests)
 endif()
 
+if(PC_BUILD_PYTHON)
+  FetchContent_Declare(pybind11
+    URL https://github.com/pybind/pybind11/archive/refs/tags/v2.13.6.tar.gz
+    DOWNLOAD_EXTRACT_TIMESTAMP TRUE)
+  FetchContent_MakeAvailable(pybind11)
+  pybind11_add_module(pricing_core python/bindings.cpp)
+  target_link_libraries(pricing_core PRIVATE pricing)
+endif()

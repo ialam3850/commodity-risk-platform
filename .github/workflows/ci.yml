@@ -30,9 +30,12 @@ jobs:
         run: |
           extra=""
           if [ "${{ matrix.config }}" = "sanitize" ]; then extra="-DCMAKE_BUILD_TYPE=Debug -DPC_SANITIZE=ON -DPC_BUILD_PYTHON=OFF"; fi
-          cmake -S pricing-core -B pricing-core/build -G Ninja -DPC_BUILD_PYTHON=OFF $extra
+          cmake -S pricing-core -B pricing-core/build -G Ninja $extra
       - run: cmake --build pricing-core/build
       - run: ctest --test-dir pricing-core/build --output-on-failure
+      - name: Test Python bindings
+        if: matrix.config == 'release'
+        run: PYTHONPATH=pricing-core/build python3 pricing-core/tests/test_bindings.py
 
   ledger-service:
     name: Java ledger service
