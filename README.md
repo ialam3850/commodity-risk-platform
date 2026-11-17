@@ -14,6 +14,8 @@ A futures ledger, pricing core, and research pipeline for commodity risk.
 - Fill booking, idempotent retries, balanced postings, deposits, and book balances.
 - Batch settlement prices and factor returns with request validation.
 - Service endpoints for Black-76 pricing, implied volatility, and historical portfolio risk.
+- Daily variation margin, P&L, and closed-date checks.
+- Python bindings for the C++ pricing and risk core.
 
 ## Run the checks
 
@@ -22,7 +24,7 @@ Run these commands from the repository root.
 C++ requires CMake 3.20+, Ninja, and a C++20 compiler.
 
 ```bash
-cmake -S pricing-core -B pricing-core/build -G Ninja -DPC_BUILD_PYTHON=OFF
+cmake -S pricing-core -B pricing-core/build -G Ninja
 cmake --build pricing-core/build
 ctest --test-dir pricing-core/build --output-on-failure
 ```
@@ -46,4 +48,10 @@ suite starts PostgreSQL through Testcontainers and requires Docker.
 ```bash
 (cd ledger-service && ./mvnw test)
 (cd ledger-service && ./mvnw verify)
+```
+
+Test the C++ Python module after building it:
+
+```bash
+PYTHONPATH=pricing-core/build python pricing-core/tests/test_bindings.py
 ```

@@ -1,5 +1,13 @@
 # Changes
 
+## Expose the pricing core to Python
+
+Add pybind11 positions and risk calculations, then test the bindings against shared pricing fixtures.
+
+## Settle daily variation margin and close trading dates
+
+Add end-of-day posting, mark-to-market P&L, repeat-run protection, and settlement ordering checks.
+
 ## Expose option pricing and historical risk endpoints
 
 Add Java pricing and portfolio VaR, cross-check prices against the C++ fixtures, and validate request values.
